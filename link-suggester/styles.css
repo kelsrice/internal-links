@@ -1,0 +1,764 @@
+/* ── Orange Labs Brand Tokens ────────────────────────────────────────────────── */
+/* Solar Ember: #F15722 | Iron: #2B2E33 | Midnight Tide: #1C3A5E             */
+/* Sandstone: #E8E2DA  | Silver Haze: #B4B6BA | Bone White: #F9F9F8          */
+/* Headers: Rajdhani | Subheaders: Poppins                                    */
+
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Poppins:wght@400;500;600&display=swap');
+
+:root {
+  --ol-ember:     #F15722;
+  --ol-iron:      #2B2E33;
+  --ol-midnight:  #1C3A5E;
+  --ol-sandstone: #E8E2DA;
+  --ol-silver:    #B4B6BA;
+  --ol-bone:      #F9F9F8;
+}
+
+/* ── Floating Trigger Button ─────────────────────────────────────────────────── */
+
+#lo-float-btn {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--ol-ember), #c94415);
+  color: white;
+  font-size: 20px;
+  border: none;
+  cursor: pointer;
+  z-index: 2147483639;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+  transition: transform 0.15s, box-shadow 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#lo-float-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+/* ── Link Opportunities Sidebar ────────────────────────────────────────────── */
+
+#lo-sidebar {
+  position: fixed;
+  top: 80px;
+  right: 24px;
+  width: 320px;
+  max-height: 75vh;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.14), 0 2px 8px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  z-index: 2147483640; /* Near max z-index so it floats above CMS chrome */
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+
+/* ── Header ─────────────────────────────────────────────────────────────────── */
+#lo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 11px 14px;
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 13px;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+#lo-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+#lo-header-actions {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+#lo-header-actions button {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: #ccc;
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 1;
+  padding: 3px 6px;
+  border-radius: 4px;
+  transition: background 0.15s, color 0.15s;
+}
+
+#lo-header-actions button:hover {
+  background: rgba(255,255,255,0.25);
+  color: #fff;
+}
+
+/* ── Body / Scroll Area ──────────────────────────────────────────────────────── */
+#lo-body {
+  overflow-y: auto;
+  flex: 1;
+  background: var(--ol-bone);
+  scrollbar-width: thin;
+  scrollbar-color: var(--ol-silver) transparent;
+}
+
+/* ── URL / title search box ──────────────────────────────────────────────────── */
+#lo-search-wrap {
+  padding: 8px 12px 0;
+}
+
+#lo-url-search {
+  width: 100%;
+  padding: 6px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 7px;
+  font-size: 11px;
+  font-family: 'Poppins', sans-serif;
+  color: #374151;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+#lo-url-search:focus {
+  outline: none;
+  border-color: var(--ol-ember);
+  box-shadow: 0 0 0 2px rgba(241,87,34,0.12);
+}
+
+#lo-content {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ── States ─────────────────────────────────────────────────────────────────── */
+.lo-hint {
+  color: #94a3b8;
+  text-align: center;
+  padding: 20px 8px;
+  margin: 0;
+  font-size: 12px;
+}
+
+.lo-subhint {
+  color: #cbd5e1;
+  text-align: center;
+  margin: -4px 0 0;
+  font-size: 11px;
+}
+
+.lo-meta {
+  color: #94a3b8;
+  font-size: 11px;
+  text-align: right;
+  margin: 0 0 2px;
+}
+
+.lo-error {
+  color: #dc2626;
+  font-size: 12px;
+  text-align: center;
+  padding: 12px 4px;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.lo-error code {
+  background: #fef2f2;
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-family: monospace;
+}
+
+/* ── Loading Spinner ─────────────────────────────────────────────────────────── */
+.lo-loading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 8px;
+  color: #64748b;
+  font-size: 12px;
+}
+
+.lo-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #e2e8f0;
+  border-top-color: #f97316;
+  border-radius: 50%;
+  animation: lo-spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes lo-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Anchor Text Block ───────────────────────────────────────────────────────── */
+.lo-anchor-placeholder {
+  font-size: 11px;
+  color: var(--ol-silver);
+  padding: 4px 0;
+}
+
+.lo-anchor-loading {
+  font-style: italic;
+}
+
+.lo-anchor-block {
+  background: #fff8f5;
+  border: 1px solid #fdd8c8;
+  border-radius: 7px;
+  padding: 9px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.lo-anchor-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ol-ember);
+  font-family: 'Poppins', sans-serif;
+}
+
+.lo-anchor-sentence {
+  font-size: 12px;
+  color: var(--ol-iron);
+  line-height: 1.5;
+  margin: 0;
+  font-style: italic;
+}
+
+mark.lo-highlight {
+  background: #fde7d8;
+  color: var(--ol-ember);
+  font-weight: 700;
+  font-style: normal;
+  border-radius: 2px;
+  padding: 0 2px;
+}
+
+.lo-pill-btn {
+  font-size: 11px;
+  background: var(--ol-ember);
+  color: #fff;
+  border: none;
+  border-radius: 99px;
+  padding: 4px 10px;
+  cursor: pointer;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: opacity 0.15s;
+}
+.lo-pill-btn:hover { opacity: 0.85; }
+
+/* ── Suggestion Card ─────────────────────────────────────────────────────────── */
+.lo-card {
+  border: 1px solid var(--ol-sandstone);
+  border-radius: 10px;
+  padding: 11px 12px;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.lo-card:hover {
+  border-color: #fdba74;
+  box-shadow: 0 2px 8px rgba(249, 115, 22, 0.1);
+}
+
+.lo-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ── Match Score Badge ───────────────────────────────────────────────────────── */
+.lo-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 99px;
+  letter-spacing: 0.03em;
+}
+
+.lo-badge-green {
+  background: #fff3ee;
+  color: var(--ol-ember);
+  border: 1px solid #f9b99e;
+}
+
+.lo-badge-amber {
+  background: #f0f4f8;
+  color: var(--ol-midnight);
+  border: 1px solid #b0c4d8;
+}
+
+.lo-badge-gray {
+  background: #f1f5f9;
+  color: #64748b;
+  border: 1px solid #e2e8f0;
+}
+
+/* ── URL search clear button ─────────────────────────────────────────────────── */
+#lo-search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+/* The input + clear button live in an inner wrapper so the × stays inside the input border */
+.lo-search-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+#lo-url-search {
+  flex: 1;
+  padding-right: 28px; /* room for the × button */
+}
+.lo-search-clear {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  color: #94a3b8;
+  padding: 2px 3px;
+  display: none;
+  align-items: center;
+  line-height: 1;
+  font-family: inherit;
+}
+.lo-search-clear:hover { color: var(--ol-ember); }
+
+/* ── Tips panel ───────────────────────────────────────────────────────────────── */
+#lo-tips-btn {
+  font-size: 11px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0;
+  padding: 3px 8px;
+  border-radius: 5px;
+}
+.lo-tips-btn-active {
+  background: rgba(255,255,255,0.3) !important;
+  color: #fff !important;
+}
+
+#lo-tips-panel {
+  background: #fffbf5;
+  border-bottom: 1px solid #fed7aa;
+  padding: 12px 14px;
+  font-size: 12px;
+  color: #374151;
+  line-height: 1.55;
+  max-height: 280px;
+  overflow-y: auto;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: #fcd9b6 transparent;
+}
+
+.lo-tips-section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.lo-tips-section-title {
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #92400e;
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: 2px;
+}
+
+.lo-tips-list {
+  margin: 0;
+  padding-left: 16px;
+}
+
+.lo-tips-list li {
+  margin-bottom: 2px;
+}
+
+#lo-tips-panel p {
+  margin: 0;
+}
+
+#lo-tips-panel kbd {
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 3px;
+  padding: 0 4px;
+  font-size: 10px;
+  font-family: monospace;
+  color: #374151;
+}
+
+/* ── Onboarding tooltip ───────────────────────────────────────────────────────── */
+#lo-onboarding-tip {
+  position: fixed;
+  bottom: 82px; /* sits above the 🔗 button */
+  right: 20px;
+  background: #1C3A5E;
+  color: #fff;
+  font-size: 12px;
+  line-height: 1.5;
+  padding: 10px 32px 10px 12px;
+  border-radius: 10px;
+  max-width: 240px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.22);
+  z-index: 2147483646;
+  font-family: 'Poppins', -apple-system, sans-serif;
+  animation: lo-tip-in 0.2s ease;
+}
+#lo-onboarding-tip::after {
+  content: '';
+  position: absolute;
+  bottom: -7px;
+  right: 22px;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 7px solid #1C3A5E;
+}
+#lo-onboarding-tip strong { color: #fff; }
+#lo-onboarding-tip em { font-style: italic; opacity: 0.85; }
+#lo-tip-dismiss {
+  position: absolute;
+  top: 6px; right: 7px;
+  background: none; border: none;
+  color: rgba(255,255,255,0.55);
+  font-size: 12px; cursor: pointer;
+  padding: 2px; font-family: inherit;
+}
+#lo-tip-dismiss:hover { color: #fff; }
+@keyframes lo-tip-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── New search button ────────────────────────────────────────────────────────── */
+.lo-new-search-btn {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 11px;
+  cursor: pointer;
+  padding: 0 2px;
+  margin-left: 4px;
+  font-family: inherit;
+  vertical-align: middle;
+}
+.lo-new-search-btn:hover { color: var(--ol-ember); text-decoration: underline; }
+
+/* ── Traffic labels ───────────────────────────────────────────────────────────── */
+.lo-traffic-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 8px;
+  border-radius: 99px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.lo-tl-top {
+  background: #fefce8;
+  color: #854d0e;
+  border: 1px solid #fde68a;
+}
+.lo-tl-traffic {
+  background: #f0fdf4;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+}
+.lo-tl-conv {
+  background: #fdf4ff;
+  color: #7e22ce;
+  border: 1px solid #e9d5ff;
+}
+
+.lo-icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 2px 4px;
+  border-radius: 4px;
+  opacity: 0.6;
+  transition: opacity 0.15s;
+}
+.lo-icon-btn:hover { opacity: 1; }
+
+/* ── Page Title Link ─────────────────────────────────────────────────────────── */
+.lo-title {
+  display: block;
+  font-weight: 600;
+  color: #1e40af;
+  text-decoration: none;
+  font-size: 13px;
+  word-break: break-word;
+  line-height: 1.3;
+}
+
+.lo-title:hover {
+  text-decoration: underline;
+  color: #1d4ed8;
+}
+
+/* ── Snippet ─────────────────────────────────────────────────────────────────── */
+.lo-snippet {
+  font-size: 11px;
+  color: #64748b;
+  line-height: 1.45;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── Copy Button (Markdown) ───────────────────────────────────────────────────── */
+.lo-copy-md,
+.lo-btn-secondary {
+  font-size: 11px;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 5px 10px;
+  cursor: pointer;
+  color: #374151;
+  font-weight: 500;
+  transition: background 0.15s, border-color 0.15s;
+  align-self: flex-start;
+}
+
+.lo-copy-md:hover,
+.lo-btn-secondary:hover {
+  background: #f9fafb;
+  border-color: #9ca3af;
+}
+
+/* ── Outline pill button (Copy HTML link) ────────────────────────────────────── */
+.lo-pill-btn--outline {
+  background: transparent;
+  color: var(--ol-ember);
+  border: 1px solid var(--ol-ember);
+}
+
+.lo-pill-btn--outline:hover {
+  background: #fff8f5;
+  opacity: 1;
+}
+
+/* ── On-page match block ─────────────────────────────────────────────────────── */
+/* Shows the specific sentence in the writer's document where the link belongs. */
+.lo-onpage-match {
+  background: #fff8f5;
+  border: 1px solid #fdd8c8;
+  border-radius: 7px;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.lo-onpage-empty {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+.lo-onpage-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ol-ember);
+  font-family: 'Poppins', sans-serif;
+}
+
+.lo-onpage-sentence {
+  font-size: 12px;
+  color: var(--ol-iron);
+  line-height: 1.5;
+  margin: 0;
+  font-style: italic;
+  word-break: break-word;
+}
+
+.lo-onpage-none {
+  font-size: 11px;
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.lo-onpage-actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 1px;
+}
+
+/* ── Manual anchor text prompt ───────────────────────────────────────────────── */
+.lo-prompt-wrap {
+  display: flex;
+  gap: 6px;
+  align-items: stretch;
+}
+
+.lo-prompt-input {
+  flex: 1;
+  padding: 7px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 7px;
+  font-size: 12px;
+  font-family: 'Poppins', sans-serif;
+  color: #1e293b;
+  background: #fff;
+}
+
+.lo-prompt-input:focus {
+  outline: none;
+  border-color: var(--ol-ember);
+  box-shadow: 0 0 0 2px rgba(241,87,34,0.12);
+}
+
+.lo-prompt-btn {
+  white-space: nowrap;
+  padding: 7px 12px;
+  border-radius: 7px;
+}
+
+/* ── Editor how-to steps ─────────────────────────────────────────────────────── */
+.lo-editor-steps {
+  background: #fffbf5;
+  border: 1px solid #fed7aa;
+  border-radius: 7px;
+  padding: 8px 10px;
+  font-size: 11px;
+  color: #374151;
+  line-height: 1.5;
+  margin-bottom: 2px;
+}
+
+.lo-editor-steps strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #92400e;
+}
+
+.lo-editor-steps ol {
+  margin: 0;
+  padding-left: 16px;
+}
+
+.lo-editor-steps li {
+  margin-bottom: 2px;
+}
+
+/* ── Anchor preview (selected text query) ────────────────────────────────────── */
+.lo-anchor-preview {
+  font-size: 11px;
+  color: #64748b;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 6px 9px;
+  margin: 0;
+  word-break: break-word;
+  line-height: 1.5;
+}
+
+.lo-anchor-preview em {
+  font-style: italic;
+  color: #374151;
+}
+
+/* ── URL display row ─────────────────────────────────────────────────────────── */
+.lo-url-display {
+  font-size: 10px;
+  color: #94a3b8;
+  word-break: break-all;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Card action button row ──────────────────────────────────────────────────── */
+.lo-card-actions {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-top: 3px;
+}
+
+/* ── Primary "Apply Link" button ─────────────────────────────────────────────── */
+.lo-btn-primary {
+  font-size: 11px;
+  font-weight: 600;
+  background: var(--ol-ember);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  white-space: nowrap;
+  font-family: 'Poppins', sans-serif;
+}
+
+.lo-btn-primary:hover  { opacity: 0.87; }
+.lo-btn-primary:active { opacity: 0.72; }
+
+.lo-btn-primary:disabled,
+.lo-btn-applied {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* ── Anchor actions row ───────────────────────────────────────────────────────── */
+.lo-anchor-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* ── Anchor reason (moved below action row) ──────────────────────────────────── */
+.lo-anchor-reason {
+  font-size: 10px;
+  color: var(--ol-silver);
+  line-height: 1.4;
+  margin: 0;
+}

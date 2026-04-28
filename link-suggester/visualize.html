@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Embedding Map — Link Opportunities</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Poppins:wght@400;500;600&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ember:     #F15722;
+      --iron:      #2B2E33;
+      --midnight:  #1C3A5E;
+      --sandstone: #E8E2DA;
+      --silver:    #B4B6BA;
+      --bone:      #F9F9F8;
+    }
+
+    body {
+      font-family: 'Poppins', -apple-system, sans-serif;
+      font-size: 13px;
+      background: var(--bone);
+      color: var(--iron);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ── Header ── */
+    #header {
+      background: linear-gradient(135deg, #F15722, #c94415);
+      color: #fff;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+
+    #header h1 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 18px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    #header .subtitle {
+      font-size: 11px;
+      opacity: 0.75;
+      white-space: nowrap;
+    }
+
+    #controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+    }
+
+    #search {
+      padding: 5px 10px;
+      border-radius: 6px;
+      border: none;
+      font-size: 12px;
+      width: 200px;
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+      outline: none;
+    }
+    #search::placeholder { color: rgba(255,255,255,0.6); }
+    #search:focus { background: rgba(255,255,255,0.3); }
+
+    .btn {
+      padding: 5px 12px;
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 6px;
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+      white-space: nowrap;
+    }
+    .btn:hover { background: rgba(255,255,255,0.28); }
+    .btn.active { background: rgba(255,255,255,0.9); color: #F15722; border-color: rgba(255,255,255,0.9); }
+
+    /* ── Stats bar ── */
+    #stats {
+      display: flex;
+      gap: 24px;
+      padding: 8px 20px;
+      background: #fff;
+      border-bottom: 1px solid var(--sandstone);
+      font-size: 12px;
+      color: #64748b;
+      flex-shrink: 0;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .stat { display: flex; align-items: center; gap: 5px; }
+    .stat strong { color: var(--iron); }
+
+    #variance-bar-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+    }
+    #variance-label { font-size: 11px; }
+    #variance-bar {
+      width: 100px;
+      height: 6px;
+      background: #e2e8f0;
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    #variance-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #f97316, #F15722);
+      border-radius: 99px;
+      transition: width 0.6s ease;
+    }
+
+    /* ── Main layout ── */
+    #main {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* ── Canvas area ── */
+    #canvas-wrap {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    #canvas {
+      display: block;
+      cursor: crosshair;
+    }
+
+    /* ── Tooltip ── */
+    #tooltip {
+      position: fixed;
+      background: var(--iron);
+      color: #fff;
+      border-radius: 8px;
+      padding: 10px 13px;
+      font-size: 12px;
+      line-height: 1.5;
+      max-width: 280px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.12s;
+      z-index: 999;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    }
+    #tooltip.visible { opacity: 1; }
+    #tooltip .tt-title { font-weight: 600; font-size: 13px; margin-bottom: 3px; }
+    #tooltip .tt-url   { font-size: 10px; color: #94a3b8; word-break: break-all; margin-bottom: 5px; }
+    #tooltip .tt-meta  { font-size: 11px; color: #cbd5e1; }
+    #tooltip .tt-head  { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+    #tooltip .tt-chip  {
+      font-size: 10px; background: rgba(255,255,255,0.12);
+      border-radius: 4px; padding: 1px 6px; color: #e2e8f0;
+    }
+    #tooltip .tt-coords { font-size: 10px; color: #64748b; margin-top: 5px; }
+
+    /* ── Legend panel ── */
+    #legend {
+      width: 220px;
+      flex-shrink: 0;
+      background: var(--bone);
+      border-left: 1px solid var(--sandstone);
+      overflow-y: auto;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    #legend h3 {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #64748b;
+      margin-bottom: 4px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      cursor: pointer;
+      padding: 3px 4px;
+      border-radius: 5px;
+      transition: background 0.1s;
+    }
+    .legend-item:hover { background: var(--sandstone); }
+    .legend-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .legend-label { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .legend-count { color: #94a3b8; font-size: 10px; }
+
+    /* ── Error / loading states ── */
+    #overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: #fff;
+      color: #64748b;
+      font-size: 13px;
+    }
+    .spinner {
+      width: 28px; height: 28px;
+      border: 3px solid #e2e8f0;
+      border-top-color: #F15722;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    #zoom-hint {
+      position: absolute;
+      bottom: 10px;
+      left: 12px;
+      font-size: 10px;
+      color: #94a3b8;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+<div id="header">
+  <div>
+    <h1>🗺️ Embedding Map</h1>
+    <div class="subtitle">2D random projection of OpenAI embeddings · similar topics cluster together</div>
+  </div>
+  <div id="controls">
+    <input id="search" type="text" placeholder="Filter pages…">
+    <button class="btn" id="outlier-btn">◎ Show outliers</button>
+    <button class="btn" id="refresh-btn">↻ Refresh</button>
+    <button class="btn" id="reset-btn">⊙ Reset view</button>
+  </div>
+</div>
+
+<div id="stats">
+  <span class="stat">📄 <strong id="stat-pages">—</strong> pages indexed</span>
+  <span class="stat">🎯 <strong id="stat-filter">—</strong> shown</span>
+  <span class="stat" title="Number of distinct URL path sections detected">🗂 <strong id="stat-sections">—</strong> site sections</span>
+  <div id="variance-bar-wrap" title="The OpenAI embedding model used to build this index. Similarity is computed in the full embedding space; the 2D view is an approximation for visual clustering.">
+    <span id="variance-label">Model: <strong id="stat-variance">—</strong></span>
+    <div id="variance-bar"><div id="variance-fill" style="width:0%"></div></div>
+  </div>
+</div>
+
+<div id="main">
+  <div id="canvas-wrap">
+    <canvas id="canvas"></canvas>
+    <div id="overlay">
+      <div class="spinner"></div>
+      <span>Loading embedding map…</span>
+    </div>
+    <div id="zoom-hint">Scroll to zoom · drag to pan · click dot to open page</div>
+  </div>
+  <div id="legend">
+    <h3>Site sections</h3>
+    <div id="legend-items"></div>
+  </div>
+</div>
+
+<div id="tooltip"></div>
+
+<script src="visualize.js"></script>
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Link Opportunities — Settings</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Poppins:wght@400;500;600&display=swap');
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 340px; font-family: 'Poppins', -apple-system, sans-serif;
+      font-size: 13px; background: #F9F9F8; color: #2B2E33;
+    }
+    .header {
+      background: linear-gradient(135deg, #F15722, #c94415);
+      color: #fff; padding: 14px 16px 12px;
+      font-family: 'Rajdhani', sans-serif; font-weight: 700;
+      font-size: 16px; letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .header small {
+      display: block; font-weight: 400; font-size: 11px;
+      color: rgba(255,255,255,0.65); margin-top: 2px;
+      font-family: 'Poppins', sans-serif; text-transform: none; letter-spacing: 0;
+    }
+    .body { padding: 14px 16px; display: flex; flex-direction: column; gap: 12px; }
+    .field { display: flex; flex-direction: column; gap: 5px; }
+    label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: #64748b; }
+
+    input[type="text"], input[type="password"], select {
+      padding: 7px 10px; border: 1px solid #d1d5db; border-radius: 7px;
+      font-size: 12px; color: #1e293b; width: 100%;
+      font-family: 'Poppins', sans-serif; background: #fff;
+    }
+    input:focus, select:focus {
+      outline: none; border-color: #F15722; box-shadow: 0 0 0 2px rgba(241,87,34,0.15);
+    }
+    .input-wrap { position: relative; }
+    .toggle-key {
+      position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; cursor: pointer; font-size: 14px; color: #94a3b8;
+      padding: 2px;
+    }
+    .toggle-key:hover { color: #64748b; }
+
+    .file-drop {
+      border: 2px dashed #d1d5db; border-radius: 9px; padding: 12px;
+      text-align: center; cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      background: #fff; font-size: 12px; color: #64748b; line-height: 1.5;
+    }
+    .file-drop:hover, .file-drop.drag-over { border-color: #F15722; background: #fff8f5; color: #c94415; }
+    .file-drop input[type="file"] { display: none; }
+    .file-icon { font-size: 20px; display: block; margin-bottom: 3px; }
+    .file-hint { font-size: 10px; color: #94a3b8; margin-top: 2px; }
+
+    .btn {
+      padding: 8px 12px; border: none; border-radius: 7px; cursor: pointer;
+      font-size: 12px; font-weight: 600; width: 100%;
+      transition: opacity 0.15s; font-family: 'Poppins', sans-serif;
+    }
+    .btn:hover  { opacity: 0.88; }
+    .btn:active { opacity: 0.75; }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn-primary { background: #F15722; color: #fff; }
+    .btn-danger  { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+
+    .divider { height: 1px; background: #f1f5f9; }
+
+    .index-stats {
+      background: #f8fafc; border: 1px solid #e2e8f0;
+      border-radius: 8px; padding: 10px 12px;
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .stat { display: flex; justify-content: space-between; font-size: 11px; color: #64748b; gap: 6px; align-items: baseline; }
+    .stat strong { color: #1e293b; font-weight: 600; }
+    .stat-unit { font-size: 10px; color: #94a3b8; font-weight: 400; }
+
+    .progress-wrap { display: none; flex-direction: column; gap: 4px; }
+    .progress-bar { height: 4px; background: #e2e8f0; border-radius: 99px; overflow: hidden; }
+    .progress-bar-fill { height: 100%; background: #F15722; border-radius: 99px; transition: width 0.2s; width: 0%; }
+    .progress-label { font-size: 10px; color: #94a3b8; text-align: center; }
+    .progress-hint  { font-size: 10px; color: #b0bac4; text-align: center; margin: 0; }
+    #cancelBtn { background: none; border: none; color: #dc2626; font-size: 11px; cursor: pointer; padding: 2px 0; text-align: center; width: 100%; font-family: inherit; opacity: 0.8; }
+    #cancelBtn:hover { opacity: 1; text-decoration: underline; }
+
+    #status { font-size: 12px; color: #475569; min-height: 16px; line-height: 1.6; }
+    .badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 99px; font-size: 11px; font-weight: 600; }
+    .badge-green { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
+    .badge-red   { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+
+    .how-to {
+      background: #fff; border: 1px solid #e2e8f0; border-radius: 8px;
+      padding: 10px 12px; font-size: 11px; color: #64748b; line-height: 1.7;
+    }
+    .how-to strong { color: #1e293b; }
+    .footer {
+      padding: 10px 16px; font-size: 10px; color: #B4B6BA;
+      border-top: 1px solid #E8E2DA; text-align: center; background: #F9F9F8;
+    }
+    .footer a { color: #F15722; text-decoration: none; }
+    .footer a:hover { text-decoration: underline; }
+    .dim-badge {
+      font-size: 10px; background: #eff6ff; color: #1e40af;
+      border: 1px solid #bfdbfe; border-radius: 4px;
+      padding: 1px 5px; margin-left: 4px; font-weight: 600;
+    }
+    .optional-badge {
+      font-size: 10px; background: #f1f5f9; color: #64748b;
+      border: 1px solid #e2e8f0; border-radius: 4px;
+      padding: 1px 5px; margin-left: 4px; font-weight: 500;
+      text-transform: none; letter-spacing: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    🔗 Link Opportunities
+    <small>Semantic Internal Link Suggestions</small>
+  </div>
+
+  <div class="body">
+
+    <!-- Index stats (shown when data is loaded) -->
+    <div id="stats-section" style="display:none">
+      <div class="index-stats">
+        <div class="stat"><span>Pages indexed</span><strong id="stat-pages">—</strong></div>
+        <div class="stat"><span>Embedding model</span><strong id="stat-model">—</strong></div>
+        <div class="stat"><span>Last imported</span><strong id="stat-date">—</strong></div>
+      </div>
+    </div>
+
+    <!-- API Key -->
+    <div class="field">
+      <label>OpenAI API Key</label>
+      <div class="input-wrap">
+        <input type="password" id="apiKey" placeholder="sk-…" autocomplete="off">
+        <button class="toggle-key" id="toggleKey" title="Show/hide key">👁</button>
+      </div>
+    </div>
+
+    <!-- Model selector -->
+    <div class="field">
+      <label>Embedding Model <span id="dim-badge" class="dim-badge" style="display:none"></span></label>
+      <select id="model">
+        <option value="text-embedding-3-small">text-embedding-3-small (1536-d, recommended)</option>
+        <option value="text-embedding-3-large">text-embedding-3-large (3072-d)</option>
+        <option value="text-embedding-ada-002">text-embedding-ada-002 (1536-d, legacy)</option>
+      </select>
+    </div>
+
+    <!-- CSV import -->
+    <div class="field">
+      <label>Import pages CSV</label>
+      <div class="file-drop" id="file-drop">
+        <input type="file" id="csvFile" accept=".csv">
+        <span class="file-icon">📂</span>
+        <span id="file-label">Click to select or drag &amp; drop</span>
+        <span class="file-hint">URL · Title · Meta Description — export from GSC, Ahrefs, Screaming Frog, or any SEO tool</span>
+      </div>
+    </div>
+    <p style="font-size:11px;color:#94a3b8;margin-top:-4px;line-height:1.5;">Embeddings are generated on import using your API key (~1–2 min for large sites).</p>
+
+    <div class="progress-wrap" id="progress-wrap">
+      <div class="progress-bar"><div class="progress-bar-fill" id="progress-fill"></div></div>
+      <div class="progress-label" id="progress-label">Parsing…</div>
+      <p class="progress-hint" id="progress-hint" style="display:none">Import continues in the background — you can close this popup safely.</p>
+    </div>
+
+    <button class="btn btn-primary" id="importBtn" disabled>⬆️ Save &amp; Import</button>
+    <button id="cancelBtn" style="display:none">✕ Cancel import</button>
+
+    <div id="status"></div>
+
+    <div class="divider" id="clear-divider" style="display:none"></div>
+    <button class="btn btn-danger" id="clearBtn" style="display:none">🗑 Clear Index</button>
+
+    <div class="divider"></div>
+
+    <!-- Traffic data import -->
+    <div id="traffic-stats-section" style="display:none">
+      <div class="index-stats">
+        <div class="stat"><span>Pages with traffic data</span><strong id="stat-traffic-pages">—</strong></div>
+        <div class="stat"><span id="stat-sessions-label">📈 High traffic</span><strong id="stat-sessions-p75">—</strong> <span class="stat-unit">sessions min.</span></div>
+        <div class="stat"><span id="stat-conv-label">💰 Conversion driver</span><strong id="stat-conv-p75">—</strong> <span class="stat-unit">conversions min.</span></div>
+        <div class="stat"><span>Traffic data imported</span><strong id="stat-traffic-date">—</strong></div>
+      </div>
+    </div>
+
+    <div class="field" id="sensitivity-field" style="display:none">
+      <label>Threshold sensitivity</label>
+      <select id="trafficSensitivity">
+        <option value="0.25">Strict — top 25% of volume (fewer, higher-impact pages)</option>
+        <option value="0.50" selected>Balanced — top 50% of volume (recommended)</option>
+        <option value="0.75">Broad — top 75% of volume (more pages labeled)</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Import traffic data <span class="optional-badge">optional</span></label>
+      <div class="file-drop" id="traffic-file-drop">
+        <input type="file" id="trafficFile" accept=".csv">
+        <span class="file-icon">📊</span>
+        <span id="traffic-file-label">Click to select or drag &amp; drop</span>
+        <span class="file-hint">GA4 export · URL + Sessions + Conversions columns</span>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" id="trafficImportBtn" disabled>⬆️ Import Traffic Data</button>
+
+    <div id="traffic-status"></div>
+
+    <div class="how-to">
+      <strong>How to export your pages CSV:</strong><br>
+      In <strong>Google Search Console</strong> → Pages report → Export. Or from <strong>Ahrefs / Screaming Frog</strong> — any export with URL, Title, and Meta Description columns works.
+    </div>
+
+  </div>
+
+  <div class="footer">
+    Re-import monthly after regenerating in Screaming Frog ·
+    <a href="https://platform.openai.com/api-keys" target="_blank">Get API key</a>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
