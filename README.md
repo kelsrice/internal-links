@@ -2,13 +2,13 @@
 
 A Chrome extension that suggests relevant internal links as you write. Highlight anchor text in your CMS, get ranked suggestions from your site's page index, and copy the URL — without leaving the editor.
 
-Works in WordPress, Contentful, Google Docs, and any browser-based CMS.
+Works in Google Docs, any browser-based CMS, and live webpages.
 
 ---
 
 ## How it works
 
-1. Export a CSV of your site's pages (URL + Title + Meta Description) from Screaming Frog, Ahrefs, or Google Search Console.
+1. Export a CSV of your site's pages (URL + Title + Meta Description) from your preferred tool (Screaming Frog, Ahrefs, Google Search Console).
 2. The extension generates embeddings for each page using the OpenAI API and stores them locally in your browser (IndexedDB). The import runs in the background — you can close the popup safely while it's running.
 3. Highlight anchor text and trigger the sidebar. The extension embeds that text and finds the most semantically similar pages in your index.
 4. Optional signals layer on top: traffic and conversion data surface pages that are both relevant and high-value; internal link counts boost underlinked pages.
@@ -32,7 +32,6 @@ All data stays local — no backend, no server, no data sent anywhere except Ope
 3. Enable **Developer mode** (toggle in the top right)
 4. Click **Load unpacked**
 5. Select the extension folder from this repo
-6. The 🔗 button will appear in the bottom-right corner of any page
 
 ---
 
@@ -214,6 +213,7 @@ With `text-embedding-3-small`:
 - ~$0.02 per million tokens
 - Indexing 10,000 pages costs under $0.05
 - Each anchor text query at search time costs ~$0.00001
+- To cut down on costs/time, only include indexable, live pages you want to add internal links to in your CSV
 
 ---
 
